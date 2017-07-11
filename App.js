@@ -17,8 +17,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       eatable: '',
-      eatables: [],
-      focusEatable: true
+      eatables: ['Chips', 'Butter', 'Honey', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
     };
   }
   _addEatables() {
@@ -32,8 +31,7 @@ class App extends React.Component {
         eatables: [
           ...prevState.eatables,
           this.state.eatable
-        ],
-        focusEatable: true
+        ]
       }
     });
   }
@@ -42,7 +40,7 @@ class App extends React.Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>
           <Greeting name="Adarsh"/>{'\n'}
-          Welcome to React Native!{'\n'}
+          Welcome to React Native!!!{'\n'}
           You are on {Platform.OS}
         </Text>
         <TouchableHighlight onPress={this._addEatables.bind(this)} underlayColor="white">
@@ -53,8 +51,8 @@ class App extends React.Component {
         <TextInput style={{
           height: 40,
           textAlign: 'center',
-        }} value={this.state.eatable} returnKeyType="done" autoFocus={this.state.focusEatable} onEndEditing={this._addEatables.bind(this)} placeholder="What do you like to eat?" onChangeText={(eatable) => this.setState({eatable})}/>
-        <FlatList data={this.state.eatables} renderItem={({item, index}) => {
+        }} value={this.state.eatable} returnKeyType="done" onSubmitEditing={this._addEatables.bind(this)} placeholder="What do you like to eat?" onChangeText={(eatable) => this.setState({eatable})}/>
+        <FlatList data={this.state.eatables} keyExtractor={(item, index) => item + '-' + index} renderItem={({item, index}) => {
           return (
             <Text key={index} style={styles.item}>{item}</Text>
           )
@@ -83,9 +81,9 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   item: {
-    padding: 10,
     fontSize: 18,
-    height: 44
+    height: 44,
+    flex:1
   }
 });
 
